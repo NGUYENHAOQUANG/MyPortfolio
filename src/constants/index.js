@@ -10,9 +10,15 @@ export const myProjects = [
       "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
       "Added payment systems, localization, and product filtering for functionality improvements.",
     ],
-    href: "",
-    logo: "",
-    image: "/assets/projects/accessories.jpg",
+    href: "https://marserille.onrender.com/",
+    logo: " ",
+    images: [
+      "/assets/projects/ecommerce1.png",
+      "/assets/projects/ecommerce2.png",
+      "/assets/projects/ecommerce3.png",
+      "/assets/projects/ecommerce4.png",
+      "/assets/projects/ecommerce5.png",
+    ],
     tags: [
       {
         id: 1,
