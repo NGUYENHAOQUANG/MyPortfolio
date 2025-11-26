@@ -1,116 +1,88 @@
-import { useRef } from "react";
-import Card from "../components/Card";
-import { Globe } from "../components/globe";
-import CopyEmailButton from "../components/CopyEmailButton";
-import { Frameworks } from "../components/FrameWorks";
+import { motion } from "framer-motion";
+import MagicBento from "../components/MagicBento";
+import { Particles } from "../components/Particles";
 
 const About = () => {
-  const grid2Container = useRef();
+  // Variants cho tiêu đề: Rơi từ trên xuống, nảy nhẹ
+  const titleVariants = {
+    hidden: { opacity: 0, y: -50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 20,
+      },
+    },
+  };
+
+  // Variants cho khối Bento: Phóng to từ nhỏ, xoay 3D nhẹ, nảy mạnh
+  const bentoContainerVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.5,
+      rotateX: 40, // Nghiêng 3D
+      y: 100, // Chìm xuống dưới
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotateX: 0,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 12, // Damping thấp -> Độ nảy cao (Bouncy)
+        mass: 0.8,
+        delay: 0.2, // Chờ tiêu đề hiện xong mới bung ra
+      },
+    },
+  };
+
   return (
-    <section className="c-space section-spacing" id="about">
-      <h2 className="text-heading">About Me</h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[18rem] mt-12">
-        {/* Grid 1 */}
-        <div className="flex items-end grid-default-color grid-1">
-          <img
-            src="assets/coding-pov.png"
-            className="absolute scale-[1.75] -right-[5rem] -top-[1rem] md:scale-[3] md:left-50 md:inset-y-10 lg:scale-[2.5]"
-          />
-          <div className="z-10">
-            <p className="headtext">Hi, I'm Ali Sanati</p>
-            <p className="subtext">
-              Over the last 4 years, I developed my frontend and backend dev
-              skills to deliver dynamic and software and web applications.
-            </p>
-          </div>
-          <div className="absolute inset-x-0 pointer-evets-none -bottom-4 h-1/2 sm:h-1/3 bg-gradient-to-t from-indigo" />
-        </div>
-        {/* Grid 2 */}
-        <div className="grid-default-color grid-2">
-          <div
-            ref={grid2Container}
-            className="flex items-center justify-center w-full h-full"
-          >
-            <p className="flex items-end text-5xl text-gray-500">
-              CODE IS CRAFT
-            </p>
-            <Card
-              style={{ rotate: "75deg", top: "30%", left: "20%" }}
-              text="GRASP"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "-30deg", top: "60%", left: "45%" }}
-              text="SOLID"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "90deg", bottom: "30%", left: "70%" }}
-              text="Design Patterns"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "-45deg", top: "55%", left: "0%" }}
-              text="Design Principles"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "20deg", top: "10%", left: "38%" }}
-              text="SRP"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "30deg", top: "70%", left: "70%" }}
-              image="assets/logos/csharp-pink.png"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "-45deg", top: "70%", left: "25%" }}
-              image="assets/logos/dotnet-pink.png"
-              containerRef={grid2Container}
-            />
-            <Card
-              style={{ rotate: "-45deg", top: "5%", left: "10%" }}
-              image="assets/logos/blazor-pink.png"
-              containerRef={grid2Container}
-            />
-          </div>
-        </div>
-        {/* Grid 3 */}
-        <div className="grid-black-color grid-3">
-          <div className="z-10 w-[50%]">
-            <p className="headtext">Time Zone</p>
-            <p className="subtext">
-              I'm based in Mars, and open to remote work worldwide
-            </p>
-          </div>
-          <figure className="absolute left-[30%] top-[10%]">
-            <Globe />
-          </figure>
-        </div>
-        {/* Grid 4 */}
-        <div className="grid-special-color grid-4">
-          <div className="flex flex-col items-center justify-center gap-4 size-full">
-            <p className="text-center headtext">
-              Do you want to start a project together?
-            </p>
-            <CopyEmailButton />
-          </div>
-        </div>
-        {/* Grid 5 */}
-        <div className="grid-default-color grid-5">
-          <div className="z-10 w-[50%]">
-            <p className="headText">Teck Stack</p>
-            <p className="subtext">
-              I specialize in a variety of languages, frameworks, and tools taht
-              allow me to build robust and scalable applications
-            </p>
-          </div>
-          <div className="absolute inset-y-0 md:inset-y-9 w-full h-full start-[50%] md:scale-125">
-            <Frameworks />
-          </div>
-        </div>
-      </div>
+    <section
+      className="c-space section-spacing flex flex-col justify-center items-center overflow-hidden"
+      id="about"
+      style={{ perspective: "1000px" }} // Quan trọng để tạo hiệu ứng 3D chiều sâu
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }} // Đợi hiện 50% mới chạy
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} // Hiệu ứng lướt cực mượt
+        className="w-full flex justify-center"
+      >
+        <h2 className="text-heading w-[90%] text-center mb-8">About Me</h2>
+      </motion.div>
+
+      <motion.div
+        variants={bentoContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        className="w-full flex justify-center"
+      >
+        <MagicBento
+          textAutoHide={false}
+          enableStars={true}
+          enableSpotlight={true}
+          enableBorderGlow={true}
+          enableTilt={true}
+          enableMagnetism={true}
+          clickEffect={true}
+          spotlightRadius={300}
+          particleCount={12}
+          glowColor="132, 0, 255"
+        />
+      </motion.div>
+      <Particles
+        className="absolute top-0 left-0 right-0 bottom-0 -z-50"
+        quantity={100}
+        ease={80}
+        color={"#ffffff"}
+        refresh
+      />
     </section>
   );
 };

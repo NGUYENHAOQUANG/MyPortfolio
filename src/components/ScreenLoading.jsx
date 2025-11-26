@@ -32,7 +32,7 @@ function ScreenLoading() {
 
         <div className=" w-full text-center text-white text-lg">
           <TextType
-            text={["Welcome to my portfolio!", "Hãy khám phá nhé!"]}
+            text={["Welcome to my portfolio!", "Let's explore this together!"]}
             className="text-5xl font-extrabold animate-gradient-x bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,255,255,0.5)] py-4"
             cursorCharacter="|"
             cursorClassName="animate-gradient-x bg-gradient-to-r from-red-500 via-yellow-500 to-blue-500 bg-clip-text text-transparent drop-shadow-md"
