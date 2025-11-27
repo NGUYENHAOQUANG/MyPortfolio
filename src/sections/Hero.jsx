@@ -2,13 +2,14 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import HeroText from "../components/HeroText";
 import { Astronaut } from "../components/Astronaut";
 import { Float } from "@react-three/drei";
+import ParallaxBackground from "../components/ParallaxBackground";
 import { useMediaQuery } from "react-responsive";
 import { easing } from "maath";
 import { Suspense, useMemo } from "react";
 import Loader from "../components/Loader";
 import { motion } from "motion/react";
 import TiltedCard from "../components/TiltedCard";
-import ParallaxBackground from "../components/ParallaxBackground";
+
 // --- CẤU HÌNH DANH SÁCH ICON (GIỮ NGUYÊN) ---
 const techIcons = [
   {
