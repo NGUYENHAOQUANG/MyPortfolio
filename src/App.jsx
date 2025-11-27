@@ -7,8 +7,7 @@ import Footer from "./sections/Footer";
 import Tech from "./sections/Tech";
 import ScreenLoading from "./components/ScreenLoading"; // Đừng quên import cái này
 import { useEffect, useState } from "react";
-import Navbar from "./sections/navbar";
-
+import Navbar from "./sections/Navbar";
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
