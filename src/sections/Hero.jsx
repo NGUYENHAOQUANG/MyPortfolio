@@ -174,7 +174,7 @@ const FloatingIcon = ({ tech }) => {
 };
 
 const Hero = () => {
-  const isMobile = useMediaQuery({ maxWidth: 853 });
+  const isMobile = useMediaQuery({ maxWidth: 870 });
 
   return (
     <section
@@ -210,7 +210,7 @@ const Hero = () => {
       </div>
 
       <motion.div
-        className="absolute z-30 mt-20 md:top-70 md:left-90"
+        className="absolute z-30 mt-20 md:top-70 2xl:left-80 md:left-30"
         initial={{
           opacity: 0,
           scale: 0,
@@ -231,29 +231,31 @@ const Hero = () => {
           filter: "drop-shadow(0px 0px 25px rgba(255, 255, 255, 0.4))",
         }}
       >
-        <TiltedCard
-          imageSrc="./assets/avatar.jpg"
-          altText="avatar image"
-          captionText="I'm a developer"
-          containerHeight="300px"
-          containerWidth="300px"
-          imageHeight="300px"
-          imageWidth="300px"
-          rotateAmplitude={12}
-          scaleOnHover={1.01}
-          showMobileWarning={false}
-          showTooltip={true}
-          displayOverlayContent={true}
-          overlayContent={
-            <div className="p-1.5 bg-black/30 backdrop-blur-sm rounded rounded-2xl border-b border-r border-white/20 mt-4 ml-4">
-              <div className=" bg-black/30 z-10">
-                <p className="text-white font-bold text-sm tracking-wide drop-shadow-md ">
-                  Nguyễn Hào Quang
-                </p>
+        {!isMobile && (
+          <TiltedCard
+            imageSrc="./assets/avatar.jpg"
+            altText="avatar image"
+            captionText="I'm a developer"
+            containerHeight="300px"
+            containerWidth="300px"
+            imageHeight="300px"
+            imageWidth="300px"
+            rotateAmplitude={12}
+            scaleOnHover={1.01}
+            showMobileWarning={false}
+            showTooltip={true}
+            displayOverlayContent={true}
+            overlayContent={
+              <div className="p-1.5 bg-black/30 backdrop-blur-sm rounded rounded-2xl border-b border-r border-white/20 mt-4 ml-4">
+                <div className=" bg-black/30 z-10">
+                  <p className="text-white font-bold text-sm tracking-wide drop-shadow-md ">
+                    Nguyễn Hào Quang
+                  </p>
+                </div>
               </div>
-            </div>
-          }
-        />
+            }
+          />
+        )}
       </motion.div>
     </section>
   );

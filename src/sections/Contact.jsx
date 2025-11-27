@@ -18,6 +18,7 @@ const Contact = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const showAlertMessage = (type, message) => {
     setAlertType(type);
     setAlertMessage(message);
@@ -26,30 +27,40 @@ const Contact = () => {
       setShowAlert(false);
     }, 5000);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
-      console.log("From submitted:", formData);
+      // Sử dụng biến môi trường từ file .env
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      // Kiểm tra xem biến môi trường có được đọc đúng không
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS keys are missing in .env file");
+      }
+
       await emailjs.send(
-        "service_79b0nyj",
-        "template_17us8im",
+        serviceId,
+        templateId,
         {
           from_name: formData.name,
-          to_name: "Ali",
           from_email: formData.email,
-          to_email: "AliSanatiDev@gmail.com",
           message: formData.message,
         },
-        "pn-Bw_mS1_QQdofuV"
+        publicKey
       );
+
       setIsLoading(false);
       setFormData({ name: "", email: "", message: "" });
-      showAlertMessage("success", "You message has been sent!");
+      showAlertMessage("success", "your message has been sent successfully!");
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
-      showAlertMessage("danger", "Somthing went wrong!");
+      console.error("Lỗi gửi mail:", error);
+      showAlertMessage("danger", "Failed to send message. Please try again.");
     }
   };
 
@@ -104,13 +115,13 @@ const Contact = () => {
               id: "name",
               label: "Full Name",
               type: "text",
-              placeholder: "John Doe",
+              placeholder: "Your Name",
             },
             {
               id: "email",
               label: "Email",
               type: "email",
-              placeholder: "JohnDoe@email.com",
+              placeholder: "example@gmail.com",
             },
             {
               id: "message",

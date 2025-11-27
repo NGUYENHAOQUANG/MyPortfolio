@@ -30,15 +30,20 @@ const App = () => {
         <div className="w-screen h-screen overflow-hidden">
           <ScreenLoading />
         </div>
-      ) : ( )} */}
-
+      ) : ()} */}
       <>
         <Navbar />
 
         {/* KHỐI 1: Các section cần căn giữa giới hạn (Hero, About, Projects) */}
         <div className="container mx-auto max-w-7xl overflow-x-hidden">
           <Hero />
+        </div>
+
+        <div className="w-full overflow-hidden">
           <About />
+        </div>
+
+        <div className="container mx-auto max-w-7xl overflow-x-hidden">
           <Projects />
         </div>
 

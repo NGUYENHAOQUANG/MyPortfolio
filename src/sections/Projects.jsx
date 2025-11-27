@@ -7,7 +7,15 @@ import ThreeDImageRing from "../components/ThreeDImageRing";
 import { Particles } from "../components/Particles";
 // Đảm bảo đường dẫn import video là chính xác
 import webcar from "../assets/carweb.mp4";
-
+import musicweb from "../assets/musicweb.mp4";
+import clockweb from "../assets/clockweb.mp4";
+import meoweb from "../assets/meoweb.mp4";
+import weatherweb from "../assets/weatherweb.mp4";
+import todolistweb from "../assets/todolistweb.mp4";
+import caculatorweb from "../assets/caculatorweb.mp4";
+import ecomerceweb from "../assets/ecomerceweb.mp4";
+import todoxweb from "../assets/todoxweb.mp4";
+import { li } from "framer-motion/client";
 const Projects = () => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -30,41 +38,49 @@ const Projects = () => {
   const mediaItems = [
     {
       type: "video",
+      src: meoweb,
+      link: "https://nguyenhaoquang.github.io/meow/",
+    },
+    {
+      type: "video",
+      src: weatherweb,
+      link: "https://nguyenhaoquang.github.io/weather/",
+    },
+
+    {
+      type: "video",
+      src: musicweb,
+      link: "https://nguyenhaoquang.github.io/music/",
+    },
+    {
+      type: "video",
+      src: clockweb,
+      link: "https://nguyenhaoquang.github.io/Clock/",
+    },
+    {
+      type: "video",
+      src: ecomerceweb,
+      link: "https://marserille.onrender.com/",
+    },
+    {
+      type: "video",
       src: webcar,
       link: "https://nguyenhaoquang.github.io/carweb/",
     }, // Video
     {
-      type: "image",
-      src: "https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      type: "video",
+      src: todoxweb,
     },
     {
-      type: "image",
-      src: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      type: "video",
+      src: todolistweb,
+      link: "https://nguyenhaoquang.github.io/Todo-list/",
     },
     {
-      type: "image",
-      src: "https://images.pexels.com/photos/912110/pexels-photo-912110.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      type: "image",
-      src: "https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      type: "image",
-      src: "https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      type: "image",
-      src: "https://images.pexels.com/photos/1704120/pexels-photo-1704120.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      type: "image",
-      src: "https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
-    {
-      type: "image",
-      src: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    },
+      type: "video",
+      src: caculatorweb,
+      link: "https://nguyenhaoquang.github.io/Caculator/",
+    }, // Video
   ];
 
   const containerVariants = {

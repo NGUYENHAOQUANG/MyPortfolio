@@ -1,17 +1,20 @@
 export const myProjects = [
   {
     id: 1,
-    title: "E-commerce Platform",
+    title: "E-commerce Platform (Full-Stack)",
     description:
-      "Facilitates purchases from international websites like Amazon and eBay, allowing customers to shop from these sites and have products delivered domestically.",
+      "A modern, fully responsive e-commerce web application with separate user and admin dashboards, offering a complete shopping and management experience.",
     subDescription: [
-      "Built a scalable application with ASP.NET Core MVC, integrating global platforms like Amazon for domestic delivery.",
-      "Implemented secure authentication and database management using ASP.NET Core Identity and Entity Framework Core.",
-      "Designed a responsive frontend with Tailwind CSS, enhancing user experience.",
-      "Added payment systems, localization, and product filtering for functionality improvements.",
+      "Built interactive and responsive UI with ReactJS, managed forms with Formik + Yup, and handled API calls using Axios",
+      "Developed robust RESTful APIs with Node.js + Express.js, powered by MongoDB and Mongoose for data persistence",
+      "Implemented secure authentication using JWT, Google OAuth2 login, password recovery, and email verification",
+      "Integrated payment methods: Cash on Delivery & QR code payment via Sepay gateway",
+      "Feature-rich user experience: quick view, product comparison, wishlist, advanced search & filtering, order tracking, and invoice viewing",
+      "Powerful admin panel with full CRUD operations for products, orders, users, and real-time analytics",
     ],
     href: "https://marserille.onrender.com/",
-    logo: " ",
+    github: "https://github.com/NGUYENHAOQUANG/e-comerce",
+    logo: "",
     images: [
       "/assets/projects/ecommerce1.png",
       "/assets/projects/ecommerce2.png",
@@ -20,26 +23,16 @@ export const myProjects = [
       "/assets/projects/ecommerce5.png",
     ],
     tags: [
-      {
-        id: 1,
-        name: "C#",
-        path: "/assets/logos/csharp.svg",
-      },
-      {
-        id: 2,
-        name: ".Net",
-        path: "/assets/logos/dotnet.svg",
-      },
-      {
-        id: 3,
-        name: "Ef Core",
-        path: "/assets/logos/efcore.png",
-      },
-      {
-        id: 4,
-        name: "TailwindCSS",
-        path: "/assets/logos/tailwindcss.svg",
-      },
+      { id: 1, name: "React", path: "/assets/logos/react.svg" },
+      { id: 2, name: "Node.js", path: "/assets/logos/nodejs.svg" },
+      { id: 3, name: "Express.js", path: "/assets/logos/expressjs.svg" },
+      { id: 4, name: "MongoDB", path: "/assets/logos/mongodb.svg" },
+      { id: 5, name: "JavaScript", path: "/assets/logos/javascript.svg" },
+      { id: 6, name: "SCSS", path: "/assets/logos/sass.svg" },
+      { id: 7, name: "HTML5", path: "/assets/logos/html5.svg" },
+      { id: 8, name: "CSS3", path: "/assets/logos/css3.svg" },
+      { id: 9, name: "Git", path: "/assets/logos/git.svg" },
+      { id: 10, name: "GitHub", path: "/assets/logos/github.svg" },
     ],
   },
   {

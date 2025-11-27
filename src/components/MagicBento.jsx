@@ -1,24 +1,34 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import Lottie from "lottie-react";
 import { gsap } from "gsap";
+// Thêm import cho framer-motion
+import { AnimatePresence, motion } from "framer-motion"; // Hoặc "motion/react" tùy phiên bản bạn cài
+
+// Import JSON assets (Giữ nguyên của bạn)
 import web from "../../src/assets/WebDeveloper.json";
 import mobile from "../../src/assets/Mobile.json";
 import fullstack from "../../src/assets/FullStack.json";
 
 // --- CONSTANTS ---
 const DEFAULT_PARTICLE_COUNT = 12;
-const DEFAULT_SPOTLIGHT_RADIUS = 400; // Tăng vùng sáng lên xíu vì hộp to ra
+const DEFAULT_SPOTLIGHT_RADIUS = 400;
 const DEFAULT_GLOW_COLOR = "132, 0, 255";
 const MOBILE_BREAKPOINT = 768;
 
+// --- CONFIG USER INFO ---
+const USER_INFO = {
+  email: "quangnguyen@example.com", // Đổi thành email thật của bạn
+  github: "https://github.com/HaoQuangDev", // Đổi thành link GitHub của bạn
+};
+
 // --- DATA CONFIGURATION ---
 const cardData = [
-  // HỘP 1: Thông tin cá nhân
+  // HỘP 1: Thông tin cá nhân (Sẽ chứa nút Copy)
   {
     color: "#060010",
     title: "I'm Nguyen Hao Quang",
     description:
-      "A passionate software developer dedicated to building seamless digital experiences and constantly leveling up my skills.",
+      "A passionate software developer dedicated to building seamless digital experiences.",
     label: "INFORMATION",
     icon: null,
   },
@@ -47,12 +57,76 @@ const cardData = [
     color: "#060010",
     title: "Full Stack Integration",
     description:
-      "Frontend is the main strength but also build and connect backend base connecting with Node.js + Express",
+      "Frontend is the main strength but also build and connect backend base connecting with Node.js.",
     label: "FULL STACK",
     icon: fullstack,
     layout: "top-right",
   },
 ];
+
+// --- SUB COMPONENTS (NEW) ---
+
+// Component nút Copy tái sử dụng
+const CopyButton = ({ text, copyValue, iconSvg, type = "email" }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e) => {
+    e.stopPropagation(); // Ngăn chặn click event lan ra card cha
+    navigator.clipboard.writeText(copyValue);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <motion.button
+      onClick={handleCopy}
+      whileHover={{ scale: 1.05, backgroundColor: "rgba(139, 92, 246, 0.2)" }}
+      whileTap={{ scale: 0.95 }}
+      className="relative px-4 py-2 text-xs sm:text-sm text-white rounded-full font-medium border border-purple-500/30 bg-purple-900/20 backdrop-blur-md cursor-pointer overflow-hidden flex items-center gap-2 transition-colors hover:border-purple-400"
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        {copied ? (
+          <motion.div
+            key="check"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center gap-2 text-green-400"
+          >
+            {/* Check Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Copied!</span>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="copy"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center gap-2"
+          >
+            {iconSvg}
+            <span>{text}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.button>
+  );
+};
 
 // --- HELPER FUNCTIONS ---
 const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
@@ -89,7 +163,7 @@ const updateCardGlowProperties = (card, mouseX, mouseY, glow, radius) => {
   card.style.setProperty("--glow-radius", `${radius}px`);
 };
 
-// --- COMPONENTS ---
+// --- CORE COMPONENTS ---
 
 const ParticleCard = ({
   children,
@@ -491,7 +565,6 @@ const GlobalSpotlight = ({
 
 const BentoCardGrid = ({ children, gridRef }) => (
   <div
-    // SỬA: Tăng max-w lên 1100px và gap lên 4 để hộp to hơn
     className="bento-section grid pt-15 gap-4 p-4 max-w-[1100px] select-none relative"
     style={{ fontSize: "clamp(1rem, 0.9rem + 0.5vw, 1.5rem)" }}
     ref={gridRef}
@@ -533,11 +606,10 @@ const MagicBento = ({
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
 
-  // Helper để xác định class cho Lottie dựa trên layout
   const getLottieClass = (layout) => {
     if (layout === "center") return "lottie-center";
     if (layout === "top-right") return "lottie-top-right";
-    return "lottie-corner"; // Default hoặc bottom-right
+    return "lottie-corner";
   };
 
   return (
@@ -558,31 +630,27 @@ const MagicBento = ({
           .card-responsive {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem; /* Tăng khoảng cách các card */
+            gap: 1.5rem;
             width: 95%;
             margin: 0 auto;
             padding: 0.5rem;
           }
           
-          /* Tablet */
           @media (min-width: 600px) {
             .card-responsive {
               grid-template-columns: repeat(2, 1fr);
             }
           }
           
-          /* Desktop */
           @media (min-width: 1024px) {
             .card-responsive {
               grid-template-columns: repeat(4, 1fr);
-              /* SỬA: Tăng chiều cao min-height từ 180px lên 240px */
               grid-template-rows: repeat(3, minmax(240px, 1fr));
               grid-template-areas: 
                 "area1 area1 area2 area2"
                 "area3 area3 area2 area2"
                 "area3 area3 area4 area4";
             }
-            
             .card-responsive .card:nth-child(1) { grid-area: area1; }
             .card-responsive .card:nth-child(2) { grid-area: area2; }
             .card-responsive .card:nth-child(3) { grid-area: area3; }
@@ -612,8 +680,6 @@ const MagicBento = ({
             opacity: 1;
           }
           
-          /* --- LAYOUT LOTTIE CLASSES --- */
-          
           .lottie-center {
             position: absolute;
             top: 45%;
@@ -633,7 +699,7 @@ const MagicBento = ({
             position: absolute;
             bottom: -10px;
             right: -10px;
-            width: 160px; /* SỬA: Tăng kích thước Lottie góc */
+            width: 160px;
             height: 160px;
             opacity: 0.9;
             pointer-events: none;
@@ -644,7 +710,7 @@ const MagicBento = ({
             position: absolute;
             top: -15px; 
             right: -15px;
-            width: 180px; /* SỬA: Tăng kích thước Lottie góc trên */
+            width: 180px;
             height: 180px;
             opacity: 0.9;
             pointer-events: none;
@@ -676,7 +742,6 @@ const MagicBento = ({
             const bgClass =
               card.color === "transparent" ? "" : "bg-[rgba(6,0,16,0.8)]";
 
-            // SỬA: Tăng min-h từ 200px lên 240px và tăng p-6 lên p-8
             const baseClassName = `card flex flex-col justify-between relative min-h-[240px] w-full max-w-full p-8 rounded-[32px] border border-[rgba(255,255,255,0.1)] ${bgClass} backdrop-blur-sm overflow-hidden transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-2xl ${
               enableBorderGlow ? "card--border-glow" : ""
             }`;
@@ -693,7 +758,6 @@ const MagicBento = ({
 
             const CardContent = () => (
               <>
-                {/* Lottie Animation Integration */}
                 {card.icon && (
                   <div className={getLottieClass(card.layout)}>
                     <Lottie
@@ -708,16 +772,13 @@ const MagicBento = ({
                   </div>
                 )}
 
-                {/* Text Content - Z-index high to stay on top */}
                 <div className="card__header flex justify-between gap-3 relative text-white z-10">
-                  {/* SỬA: Tăng text-xs thành text-sm */}
                   <span className="card__label text-sm font-bold tracking-widest text-purple-400 border border-purple-900/50 px-3 py-1.5 rounded bg-purple-900/20">
                     {card.label}
                   </span>
                 </div>
 
                 <div className="card__content flex flex-col relative text-white z-10 mt-auto">
-                  {/* SỬA: Tăng text-xl thành text-3xl */}
                   <h3
                     className={`card__title font-semibold text-3xl m-0 mb-3 ${
                       textAutoHide ? "text-clamp-1" : ""
@@ -725,7 +786,6 @@ const MagicBento = ({
                   >
                     {card.title}
                   </h3>
-                  {/* SỬA: Tăng text-sm thành text-base */}
                   <p
                     className={`card__description text-base leading-relaxed text-gray-300 ${
                       textAutoHide ? "text-clamp-2" : ""
@@ -733,6 +793,51 @@ const MagicBento = ({
                   >
                     {card.description}
                   </p>
+
+                  {/* --- BUTTON GROUP (Chỉ hiện ở card đầu tiên) --- */}
+                  {index === 0 && (
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      {/* COPY EMAIL BUTTON */}
+                      <CopyButton
+                        text="Email"
+                        copyValue={USER_INFO.email}
+                        iconSvg={
+                          // Đã đổi sang icon Mail (Envelope)
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                          </svg>
+                        }
+                      />
+
+                      {/* COPY GITHUB BUTTON */}
+                      <CopyButton
+                        text="GitHub"
+                        copyValue={USER_INFO.github}
+                        iconSvg={
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                          >
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                        }
+                      />
+                    </div>
+                  )}
                 </div>
               </>
             );
