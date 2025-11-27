@@ -2,7 +2,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import HeroText from "../components/HeroText";
 import { Astronaut } from "../components/Astronaut";
 import { Float } from "@react-three/drei";
-import ParallaxBackground from "../components/ParallaxBackground";
+import ParallaxBackground from "../components/parallaxBackground";
 import { useMediaQuery } from "react-responsive";
 import { easing } from "maath";
 import { Suspense, useMemo } from "react";
